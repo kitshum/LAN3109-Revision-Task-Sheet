@@ -313,6 +313,23 @@
         .syl-c2 { color: var(--syl3); }
         .syl-c3 { color: var(--syl4); }
 
+        /* Silent Letter Formatting Profile */
+        .silent {
+            opacity: 0.45;
+            font-style: italic;
+            position: relative;
+        }
+        .silent::after {
+            content: ".";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            line-height: 0;
+            opacity: 0.5;
+        }
+
         .btn-word-mic {
             background: #4f46e5;
             color: white;
@@ -752,6 +769,7 @@
 </head>
 <body>
 
+    <!-- ================= PAGE 1 VIEW (Task Sheet & Contexts) ================= -->
     <div id="page1" class="page-view active">
         
         <div class="vtc-header">
@@ -781,6 +799,7 @@
             </div>
         </div>
 
+        <!-- SITUATION 1 -->
         <div class="situation-card" id="card_s1">
             <h2 class="sit-title">Situation 1</h2>
             <p class="sit-desc" id="desc1"></p>
@@ -819,6 +838,7 @@
             </div>
         </div>
 
+        <!-- SITUATION 2 -->
         <div class="situation-card" id="card_s2">
             <h2 class="sit-title">Situation 2</h2>
             <p class="sit-desc" id="desc2"></p>
@@ -863,6 +883,7 @@
     </div>
 
 
+    <!-- ================= PAGE 2 VIEW (Pronunciation Suite) ================= -->
     <div id="page2" class="page-view">
         <div class="p2-vtc-header">
             <div class="p2-vtc-center-group">
@@ -892,8 +913,8 @@
     </div>
 
 
+    <!-- ================= CONSOLIDATED JAVASCRIPT MASTER SCRIPT ================= -->
     <script>
-        // --- Page Navigation Controls ---
         function navigateToPage(pageId) {
             document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
@@ -906,48 +927,61 @@
             saveData('studentName', val);
         }
 
-        // --- Page 1 Text Datasets ---
+        // --- Page 1 Syllables + Silent Letter Handling ---
         const syllableDictionary = {
-            "project": ["proj", "ect"], "officer": ["of", "fi", "cer"], "harbour": ["har", "bour"],
-            "record": ["rec", "ord"], "hotline": ["hot", "line"], "message": ["mes", "sage"],
-            "english": ["eng", "lish"], "promotion": ["pro", "mo", "tion"], "easter": ["eas", "ter"],
-            "market": ["mar", "ket"], "marketing": ["mar", "ket", "ing"], "workshop": ["work", "shop"],
-            "situation": ["sit", "u", "a", "tion"], "benefits": ["ben", "e", "fits"], "joining": ["join", "ing"],
-            "event": ["e", "vent"], "special": ["spe", "cial"], "motivate": ["mo", "ti", "vate"], "target": ["tar", "get"]
+            "project": ["proj", "ect"], 
+            "officer": ["of", "fi", "cer"], 
+            "harbour": ["har", "b<span class='silent'>o</span>ur"],
+            "record": ["rec", "ord"], 
+            "hotline": ["hot", "line"], 
+            "message": ["mes", "sage"],
+            "english": ["eng", "lish"], 
+            "promotion": ["pro", "mo", "tion"], 
+            "easter": ["eas", "ter"],
+            "market": ["mar", "ket"], 
+            "marketing": ["mar", "ket", "ing"], 
+            "workshop": ["work", "shop"],
+            "situation": ["sit", "u", "a", "tion"], 
+            "benefits": ["ben", "e", "fits"], 
+            "joining": ["join", "ing"],
+            "event": ["e", "vent"], 
+            "special": ["spe", "cial"], 
+            "motivate": ["mo", "ti", "va<span class='silent'>e</span>"], 
+            "target": ["tar", "get"]
         };
 
         const rawTextSituation1 = "You are a Project Officer at Harbour Mall. You need to record a hotline message in English about a new promotion: Easter Market.";
         const rawTextSituation2 = "You are a Marketing Officer at Maker House. You need to record a hotline message in English about a new promotion: Toy-making Workshop.";
 
-        // --- Page 2 Vocabulary Datasets ---
+        // --- Page 2 Vocabulary Datasets + Silent Letters Injected Dynamically ---
         const vocabularyData = [
             { word: "activity", syllables: ["ac", "tiv", "i", "ty"], ch: "活動", cat: "Nouns / Noun phrases", sentence: "We have an exciting activity for you today." },
-            { word: "business", syllables: ["busi", "ness"], ch: "商業/生意", cat: "Nouns / Noun phrases", sentence: "He wants to start a small business soon." },
+            { word: "business", syllables: ["busi", "<span class='silent'>e</span>ness"], ch: "商業/生意", cat: "Nouns / Noun phrases", sentence: "He wants to start a small business soon." },
             { word: "crafting", syllables: ["craft", "ing"], ch: "手工藝製作", cat: "Nouns / Noun phrases", sentence: "She enjoys crafting handmade gifts for her friends." },
             { word: "egg hunt", syllables: ["egg", " ", "hunt"], ch: "尋找復活節彩蛋活動", cat: "Nouns / Noun phrases", sentence: "Children love the Easter egg hunt every year." },
             { word: "event", syllables: ["e", "vent"], ch: "活動/盛事", cat: "Nouns / Noun phrases", sentence: "This event will start at 2 p.m. tomorrow." },
-            { word: "family", syllables: ["fam", "i", "ly"], ch: "家庭/家人", cat: "Nouns / Noun phrases", sentence: "Please bring your family to our party." },
+            { word: "family", syllables: ["fam", "i<span class='silent'>ly</span>"], ch: "家庭/家人", cat: "Nouns / Noun phrases", sentence: "Please bring your family to our party." },
             { word: "fee", syllables: ["fee"], ch: "費用", cat: "Nouns / Noun phrases", sentence: "You must pay an entry fee of ten dollars." },
-            { word: "guidance", syllables: ["guid", "ance"], ch: "指導/引導", cat: "Nouns / Noun phrases", sentence: "The teacher gives clear guidance to all students." },
+            { word: "guidance", syllables: ["guid", "an<span class='silent'>c</span>e"], ch: "指導/引導", cat: "Nouns / Noun phrases", sentence: "The teacher gives clear guidance to all students." },
             { word: "help desk", syllables: ["help", " ", "desk"], ch: "服務台/諮詢處", cat: "Nouns / Noun phrases", sentence: "You can ask for a map at the help desk." },
-            { word: "homepage", syllables: ["home", "page"], ch: "首頁", cat: "Nouns / Noun phrases", sentence: "Please visit our homepage to read the updates." },
-            { word: "hop race", syllables: ["hop", " ", "race"], ch: "跳躍比賽", cat: "Nouns / Noun phrases", sentence: "The fun hop race is about to begin." },
-            { word: "hour", syllables: ["hour"], ch: "小時", cat: "Nouns / Noun phrases", sentence: "The workshop lasts for one hour." },
+            { word: "homepage", syllables: ["home", "pa<span class='silent'>g</span>e"], ch: "首頁", cat: "Nouns / Noun phrases", sentence: "Please visit our homepage to read the updates." },
+            { word: "hop race", syllables: ["hop", " ", "ra<span class='silent'>c</span>e"], ch: "跳躍比賽", cat: "Nouns / Noun phrases", sentence: "The fun hop race is about to begin." },
+            { word: "hour", syllables: ["<span class='silent'>h</span>our"], ch: "小時", cat: "Nouns / Noun phrases", sentence: "The workshop lasts for one hour." },
             { word: "market", syllables: ["mar", "ket"], ch: "市場", cat: "Nouns / Noun phrases", sentence: "We can buy fresh fruit at the weekend market." },
             { word: "member", syllables: ["mem", "ber"], ch: "會員/成員", cat: "Nouns / Noun phrases", sentence: "Every member can get a free gift today." },
             { word: "music", syllables: ["mu", "sic"], ch: "音樂", cat: "Nouns / Noun phrases", sentence: "I like listening to pop music when I study." },
-            { word: "office", syllables: ["of", "fice"], ch: "辦公室", cat: "Nouns / Noun phrases", sentence: "Our main office is on the third floor." },
+            { word: "office", syllables: ["of", "fi<span class='silent'>c</span>e"], ch: "辦公室", cat: "Nouns / Noun phrases", sentence: "Our main office is on the third floor." },
             { word: "opening", syllables: ["o", "pen", "ing"], ch: "開幕/開放時間", cat: "Nouns / Noun phrases", sentence: "The opening of the new shop is next Monday." },
             { word: "paper", syllables: ["pa", "per"], ch: "紙張", cat: "Nouns / Noun phrases", sentence: "Use this clean piece of paper to draw a picture." },
             { word: "participant", syllables: ["par", "tic", "i", "pant"], ch: "參與者", cat: "Nouns / Noun phrases", sentence: "Each participant will receive a certificate." },
-            { word: "performance", syllables: ["per", "form", "ance"], ch: "表演/表現", cat: "Nouns / Noun phrases", sentence: "The dance performance was very exciting." },
+            { word: "performance", syllables: ["per", "form", "an<span class='silent'>c</span>e"], ch: "表演/表現", cat: "Nouns / Noun phrases", sentence: "The dance performance was very exciting." },
             { word: "period", syllables: ["pe", "ri", "od"], ch: "期間/一段時間", cat: "Nouns / Noun phrases", sentence: "The promotion period runs from Monday to Friday." },
             { word: "person", syllables: ["per", "son"], ch: "人", cat: "Nouns / Noun phrases", sentence: "Only one person can enter the room at a time." },
             { word: "promotion", syllables: ["pro", "mo", "tion"], ch: "推廣/促銷", cat: "Nouns / Noun phrases", sentence: "Don't miss our special Easter promotion this week." },
             { word: "session", syllables: ["ses", "sion"], ch: "環節/場次", cat: "Nouns / Noun phrases", sentence: "The morning session will focus on design." },
             { word: "shop", syllables: ["shop"], ch: "商店", cat: "Nouns / Noun phrases", sentence: "You can buy handmade toys at this shop." },
             { word: "skill", syllables: ["skill"], ch: "技能/技巧", cat: "Nouns / Noun phrases", sentence: "This workshop will help you learn a new skill." },
-            { word: "surprise", syllables: ["sur", "prise"], ch: "驚喜", cat: "Nouns / Noun phrases", sentence: "We have a special surprise for our guests." },
+            { word: "surprise", syllables: ["sur", "pri<span class='silent'>s</span>e"], ch: "驚喜", cat: "Nouns / Noun phrases", sentence: "We have a special surprise for our guests." },
             { word: "team", syllables: ["team"], ch: "團隊", cat: "Nouns / Noun phrases", sentence: "Our project team works hard every day." },
             { word: "toy", syllables: ["toy"], ch: "玩具", cat: "Nouns / Noun phrases", sentence: "This wooden toy is safe for children to play with." },
             { word: "website", syllables: ["web", "site"], ch: "網站", cat: "Nouns / Noun phrases", sentence: "Check our website for more details about the event." },
@@ -955,19 +989,19 @@
             { word: "workshop", syllables: ["work", "shop"], ch: "工作坊/研討會", cat: "Nouns / Noun phrases", sentence: "Please join our creative toy-making workshop." },
             
             { word: "colourful", syllables: ["col", "our", "ful"], ch: "色彩繽紛的", cat: "Adjectives", sentence: "She painted a colourful picture for the wall." },
-            { word: "creative", syllables: ["cre", "a", "tive"], ch: "有創意的", cat: "Adjectives", sentence: "We welcome any creative ideas for this project." },
+            { word: "creative", syllables: ["cre", "a", "ti<span class='silent'>v</span>e"], ch: "有創意的", cat: "Adjectives", sentence: "We welcome any creative ideas for this project." },
             { word: "exciting", syllables: ["ex", "cit", "ing"], ch: "令人興奮的", cat: "Adjectives", sentence: "It is an exciting match to watch." },
-            { word: "festive", syllables: ["fes", "tive"], ch: "節日的/喜慶的", cat: "Adjectives", sentence: "The mall has a very festive atmosphere during Christmas." },
+            { word: "festive", syllables: ["fes", "ti<span class='silent'>v</span>e"], ch: "節日的/喜慶的", cat: "Adjectives", sentence: "The mall has a very festive atmosphere during Christmas." },
             { word: "fun", syllables: ["fun"], ch: "有趣的", cat: "Adjectives", sentence: "Playing team games is a fun way to learn." },
-            { word: "live", syllables: ["live"], ch: "現場的/直播的", cat: "Adjectives", sentence: "There will be a live music show tonight." },
+            { word: "live", syllables: ["li<span class='silent'>v</span>e"], ch: "現場的/直播的", cat: "Adjectives", sentence: "There will be a live music show tonight." },
             { word: "special", syllables: ["spe", "cial"], ch: "特別的", cat: "Adjectives", sentence: "We have a special discount for members." },
             { word: "step-by-step", syllables: ["step", "-", "by", "-", "step"], ch: "按部就班的/循序漸進的", cat: "Adjectives", sentence: "Follow the step-by-step guide to make your toy." },
             { word: "upcoming", syllables: ["up", "com", "ing"], ch: "即將到來的", cat: "Adjectives", sentence: "Details of the upcoming workshop are online." },
             { word: "wooden", syllables: ["wood", "en"], ch: "木製的", cat: "Adjectives", sentence: "He bought a simple wooden chair for his room." },
             
-            { word: "choose", syllables: ["choose"], ch: "選擇", cat: "Verbs / Phrasal verbs", sentence: "You can choose your favourite colour from the list." },
-            { word: "click", syllables: ["click"], ch: "點擊", cat: "Verbs / Phrasal verbs", sentence: "Click the link below to sign up." },
-            { word: "create", syllables: ["cre", "ate"], ch: "創造/製作", cat: "Verbs / Phrasal verbs", sentence: "We can create a beautiful poster together." },
+            { word: "choose", syllables: ["choo<span class='silent'>s</span>e"], ch: "選擇", cat: "Verbs / Phrasal verbs", sentence: "You can choose your favourite colour from the list." },
+            { word: "click", syllables: ["clic<span class='silent'>k</span>"], ch: "點擊", cat: "Verbs / Phrasal verbs", sentence: "Click the link below to sign up." },
+            { word: "create", syllables: ["cre", "a<span class='silent'>t</span>e"], ch: "創造/製作", cat: "Verbs / Phrasal verbs", sentence: "We can create a beautiful poster together." },
             { word: "enjoy", syllables: ["en", "joy"], ch: "享受/喜歡", cat: "Verbs / Phrasal verbs", sentence: "I hope you enjoy this wonderful event." },
             { word: "learn", syllables: ["learn"], ch: "學習", cat: "Verbs / Phrasal verbs", sentence: "You can learn how to make toys here." },
             { word: "select", syllables: ["se", "lect"], ch: "挑選/選擇", cat: "Verbs / Phrasal verbs", sentence: "Please select the correct option on the screen." },
@@ -980,7 +1014,6 @@
         let platformVoices = [];
         const NativeSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-        // --- Build Page 1 Interactive Context Blocks ---
         function buildInteractiveParagraph(targetSelector, rawText) {
             const container = document.getElementById(targetSelector);
             container.innerHTML = "";
@@ -1040,12 +1073,10 @@
             });
         }
 
-        // Dedicated TTS Audio output - Prioritizing British Female Profile
         function triggerAudioPronounce(word) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(word);
-                
                 utterance.lang = 'en-GB';
                 utterance.rate = 0.82;
 
@@ -1060,7 +1091,6 @@
             }
         }
 
-        // Page 1 Local Mic Validation Engine
         function executeWordSpeechCheck(targetWord, elementWrapper, micButton) {
             if (!NativeSpeechRecognition) {
                 alert("Speech recognition isn't supported in this browser. Use Chrome or Safari.");
@@ -1110,7 +1140,6 @@
             recognition.start();
         }
 
-        // --- Page 2 Render Infrastructure ---
         function initializePage2VocabularySuite() {
             const container = document.getElementById('vocabList');
             container.innerHTML = "";
@@ -1154,7 +1183,7 @@
                     <div class="actions">
                         <span class="status-badge" id="badge-${index}"></span>
                         <button class="btn-hint" id="hint-btn-${index}" onclick="toggleHint(${index})">💡 Hint</button>
-                        <button class="btn-example" id="example-btn-${index}" onclick="toggleExample(${index})">📝 Example (QF2)</button>
+                        <button class="btn-example" id="example-btn-${index}" onclick="toggleExample(${index})">📝 Example</button>
                         <button class="btn-speak" id="speak-btn-${index}" onclick="verifySuitePronunciation(${index}, '${item.word}')">🎤 Speak</button>
                     </div>
                 `;
@@ -1162,15 +1191,10 @@
             });
         }
 
-        // Clicking the word triggers British audio and displays Chinese meaning directly without prefix
         function handleWordClick(index, word) {
             triggerAudioPronounce(word);
             const cnElem = document.getElementById(`chinese-${index}`);
-            if (cnElem.style.display === 'block') {
-                cnElem.style.display = 'none';
-            } else {
-                cnElem.style.display = 'block';
-            }
+            cnElem.style.display = (cnElem.style.display === 'block') ? 'none' : 'block';
         }
 
         function toggleStar(index, word) {
@@ -1201,16 +1225,10 @@
         function toggleExample(index) {
             const exElem = document.getElementById(`example-${index}`);
             const exBtn = document.getElementById(`example-btn-${index}`);
-            if (exElem.style.display === 'block') {
-                exElem.style.display = 'none';
-                exBtn.classList.remove('active');
-            } else {
-                exElem.style.display = 'block';
-                exBtn.classList.add('active');
-            }
+            exElem.style.display = (exElem.style.display === 'block') ? 'none' : 'block';
+            exBtn.classList.toggle('active');
         }
 
-        // High sensitivity exact string matching mechanism
         function verifySuitePronunciation(index, targetWord) {
             if (!NativeSpeechRecognition) {
                 alert("Speech recognition engine not fully supported on this platform.");
@@ -1234,7 +1252,6 @@
             
             recognitionSuite.onresult = function(event) {
                 const speechResult = event.results[0][0].transcript.toLowerCase().trim();
-                
                 const cleanTarget = targetWord.toLowerCase().replace(/[^a-zA-Z0-9]/g, '').trim();
                 const cleanSpeech = speechResult.replace(/[^a-zA-Z0-9]/g, '').trim();
 
