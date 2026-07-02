@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAN3109 Revision Hub</title>
+    <title>LAN3109 Hub</title>
     <style>
         :root {
             --primary: #4f46e5;
             --primary-dark: #3730a3;
-            --primary-gradient: linear-gradient(135deg, #312e81 0%, #4f46e5 100%);
+            --primary-gradient: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 100%);
             --bg-gradient: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 50%, #f1f5f9 100%);
             --card-bg: #ffffff;
             --text: #0f172a;
@@ -27,7 +27,7 @@
             --syl3: #4ade80;
             --syl4: #fbbf24;
 
-            /* Page 2 Exclusive styling tokens safely integrated */
+            /* Page 2 Exclusive styling tokens */
             --p2-success: #059669;
             --p2-success-light: #ecfdf5;
             --p2-danger: #dc2626;
@@ -54,7 +54,7 @@
             min-height: 100vh;
         }
 
-        /* --- SPA View Navigation Wrapper Logic --- */
+        /* --- SPA View Navigation Wrapper --- */
         .page-view {
             display: none;
             width: 100%;
@@ -67,28 +67,84 @@
             display: flex;
         }
 
-        /* --- PAGE 1 ELEMENTS --- */
-        .main-header {
+        /* --- HEADER ELEMENTS --- */
+        .vtc-header {
             width: 100%;
-            background: var(--primary-gradient);
-            color: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.2);
-            margin-bottom: 30px;
             text-align: center;
+            margin-bottom: 25px;
+            color: #475569;
         }
 
-        .main-header h1 {
-            font-size: 2.2rem;
+        .vtc-institution {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #475569;
+            margin-bottom: 2px;
+        }
+
+        .vtc-programme {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+
+        .vtc-module {
+            font-size: 1.5rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
+            color: #000000;
+            margin-bottom: 6px;
         }
 
-        .main-header p {
-            color: #cbd5e1;
-            font-size: 1rem;
+        .vtc-assignment {
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 6px;
+        }
+
+        .vtc-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #000000;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+
+        /* Custom alignment rules for the image style on page 2 */
+        .p2-vtc-header {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .p2-vtc-center-group {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 20px;
+        }
+        .p2-vtc-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #000000;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .vtc-instructions-box {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #1e293b;
+            border-left: 5px solid var(--primary);
+        }
+
+        .vtc-instructions-box ol {
+            margin-top: 8px;
+            margin-left: 24px;
         }
 
         .meta-container {
@@ -113,7 +169,7 @@
             gap: 12px;
         }
 
-        .student-meta input, .setup-box select {
+        .student-meta input {
             padding: 10px 16px;
             border: 2px solid #cbd5e1;
             border-radius: 8px;
@@ -123,9 +179,41 @@
             background-color: white;
             transition: all 0.2s;
         }
-        .student-meta input:focus, .setup-box select:focus { 
+        .student-meta input:focus { 
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(165, 180, 252, 0.4);
+        }
+
+        .p2-setup-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            width: 100%;
+        }
+        
+        .p2-meta-fields {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .p2-setup-box input {
+            padding: 10px 16px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 280px;
+            outline: none;
+        }
+        .p2-setup-box input:focus {
+            border-color: var(--primary);
         }
 
         .instruction-tag {
@@ -136,11 +224,12 @@
             padding: 8px 16px;
             border-radius: 20px;
             border: 1px solid #e2e8f0;
+            line-height: 1.4;
         }
 
         .situation-card {
             width: 100%;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             background: transparent;
         }
 
@@ -374,37 +463,10 @@
             border-color: #ef4444;
         }
 
-        .footer-action-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid #cbd5e1;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            box-shadow: 0 -10px 25px -5px rgba(0,0,0,0.08);
-            z-index: 500;
-        }
-
-        .btn-download { 
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-            color: white; 
-            padding: 14px 40px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
-        }
-
-        /* --- FLOATING TRANSITION SHORTCUT (Bottom-Right of Page 1) --- */
+        /* --- FLOATING TRANSITION SHORTCUT --- */
         .nav-floating-btn {
             position: fixed;
-            bottom: 90px; /* Elevated high enough to sit safely above fixed action bars if needed */
+            bottom: 30px;
             right: 30px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
@@ -427,27 +489,13 @@
             box-shadow: 0 14px 30px rgba(79, 70, 229, 0.45);
         }
 
-        /* --- PAGE 2 EXCLUSIVE STYLING --- */
-        .setup-box {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            background: rgba(255, 255, 255, 0.12);
-            padding: 16px 24px;
-            border-radius: 14px;
-            backdrop-filter: blur(8px);
-            margin-top: 15px;
-        }
-        .setup-box label { color: white; }
-
+        /* --- PAGE 2 SUITE STYLING --- */
         .list-container {
             width: 100%;
             display: flex;
             flex-direction: column;
             gap: 14px;
-            margin-bottom: 50px;
+            margin-bottom: 110px;
         }
 
         .category-heading {
@@ -519,6 +567,13 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+            cursor: pointer;
+        }
+
+        .word-text-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .word-text {
@@ -527,12 +582,21 @@
             color: #1e293b;
             letter-spacing: -0.3px;
         }
+        
+        .click-audio-badge {
+            font-size: 0.75rem;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
 
-        .syllable-hint, .chinese-hint {
+        .syllable-hint, .chinese-hint, .example-sentence-hint {
             font-size: 1.05rem;
             font-weight: 600;
             display: none;
-            padding: 6px 14px;
+            padding: 8px 14px;
             border-radius: 8px;
             width: fit-content;
             margin-top: 4px;
@@ -549,6 +613,15 @@
             color: #047857;
             background: #f0fdf4;
             border-left: 4px solid #10b981;
+        }
+
+        .example-sentence-hint {
+            color: #1e1b4b;
+            background: #f5f3ff;
+            border-left: 4px solid #8b5cf6;
+            font-weight: 500;
+            font-style: italic;
+            max-width: 90%;
         }
 
         @keyframes p2FadeIn {
@@ -580,16 +653,13 @@
             transition: all 0.2s;
         }
 
-        .btn-listen { background-color: #e0e7ff; color: var(--primary-dark); }
-        .btn-listen:hover { background-color: #c7d2fe; }
-
         .btn-hint { background-color: var(--p2-warning-light); color: #92400e; }
         .btn-hint:hover { background-color: #fef3c7; }
         .btn-hint.active { background-color: #92400e; color: white; }
 
-        .btn-chinese { background-color: #ecfdf5; color: #065f46; }
-        .btn-chinese:hover { background-color: #d1fae5; }
-        .btn-chinese.active { background-color: #065f46; color: white; }
+        .btn-example { background-color: #f5f3ff; color: #5b21b6; border: 1px solid #ddd6fe; }
+        .btn-example:hover { background-color: #ede9fe; }
+        .btn-example.active { background-color: #5b21b6; color: white; }
 
         .btn-speak { background-color: #f1f5f9; color: #475569; border: 1px solid var(--p2-border-light); }
         .btn-speak:hover { background-color: #e2e8f0; color: var(--text); }
@@ -683,10 +753,23 @@
 <body>
 
     <div id="page1" class="page-view active">
-        <header class="main-header">
-            <h1>LAN3109 Revision Task Sheet</h1>
-            <p>Analyze scenarios, practice reading target vocabulary, and draft your professional responses.</p>
-        </header>
+        
+        <div class="vtc-header">
+            <div class="vtc-institution">Vocational Training Council</div>
+            <div class="vtc-programme">Diploma of Foundation Studies</div>
+            <div class="vtc-module">Vocational English IV: Oral Presentation (LAN3109F)</div>
+            <div class="vtc-assignment">Assignment – Reassessment (2025-2026)</div>
+            <div class="vtc-title">Revision Task Sheet</div>
+        </div>
+
+        <div class="vtc-instructions-box">
+            In this assessment, you will deliver a hotline message about a new promotion in one of the following situations. To better prepare for the assessment, you should:
+            <ol>
+                <li>read the situations carefully;</li>
+                <li>complete the task below; and</li>
+                <li>revise the vocabulary list on p.2.</li>
+            </ol>
+        </div>
 
         <div class="meta-container">
             <div class="student-meta">
@@ -694,7 +777,7 @@
                 <input type="text" id="studentName" placeholder="Type full name..." oninput="syncStudentName(this.value)">
             </div>
             <div class="instruction-tag">
-                🗣️ Click any word to hear it &amp; check your pronunciation directly in the popup bubble!
+                🗣️ Click any context word below to listen to and practise its pronunciation.
             </div>
         </div>
 
@@ -774,36 +857,30 @@
             </div>
         </div>
 
-        <div class="footer-action-bar">
-            <button class="btn-download" onclick="exportToWorksheet()">💾 Download Completed Worksheet (PDF)</button>
-        </div>
-
         <button class="nav-floating-btn" onclick="navigateToPage('page2')">
-            Go to Pronunciation Practice ➔
+            Go to Vocabulary List (p.2) ➔
         </button>
     </div>
 
 
     <div id="page2" class="page-view">
-        <header class="main-header">
-            <h1>LAN3109 Phonetic Pronunciation Hub</h1>
-            <p>Listen to the target words, analyze syllable parameters, and calibrate your speech patterns!</p>
-            <div class="setup-box">
-                <div class="input-group" style="display: flex; align-items: center; gap: 10px;">
-                    <label for="studentNameP2"><strong>Student Name:</strong></label>
-                    <input type="text" id="studentNameP2" placeholder="Type full name..." oninput="syncStudentName(this.value)">
-                </div>
-                <div class="input-group" style="display: flex; align-items: center; gap: 10px;">
-                    <label for="voiceAccent"><strong>Voice Accent:</strong></label>
-                    <select id="voiceAccent">
-                        <option value="us-female">🇺🇸 American (Female)</option>
-                        <option value="us-male">🇺🇸 American (Male)</option>
-                        <option value="uk-female">🇬🇧 British (Female)</option>
-                        <option value="uk-male">🇬🇧 British (Male)</option>
-                    </select>
-                </div>
+        <div class="p2-vtc-header">
+            <div class="p2-vtc-center-group">
+                <div class="vtc-institution">Vocational Training Council</div>
+                <div class="vtc-programme">Diploma of Foundation Studies</div>
             </div>
-        </header>
+            <div class="p2-vtc-title">Vocabulary List</div>
+        </div>
+
+        <div class="p2-setup-box">
+            <div class="p2-meta-fields">
+                <label for="studentNameP2"><strong>Student Name:</strong></label>
+                <input type="text" id="studentNameP2" placeholder="Type full name..." oninput="syncStudentName(this.value)">
+            </div>
+            <div class="instruction-tag">
+                💡 <strong>Instructions:</strong> Click any word block to listen to its pronunciation and learn its Chinese meaning. You can also star (★) difficult words to prioritise and deepen your revision.
+            </div>
+        </div>
 
         <div class="list-container" id="vocabList"></div>
 
@@ -823,14 +900,13 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Synchronize name inputs across views
         function syncStudentName(val) {
             document.getElementById('studentName').value = val;
             document.getElementById('studentNameP2').value = val;
             saveData('studentName', val);
         }
 
-        // --- Page 1 Text Datasets & Dictionaries ---
+        // --- Page 1 Text Datasets ---
         const syllableDictionary = {
             "project": ["proj", "ect"], "officer": ["of", "fi", "cer"], "harbour": ["har", "bour"],
             "record": ["rec", "ord"], "hotline": ["hot", "line"], "message": ["mes", "sage"],
@@ -845,68 +921,66 @@
 
         // --- Page 2 Vocabulary Datasets ---
         const vocabularyData = [
-            { word: "activity", syllables: ["ac", "tiv", "i", "ty"], ch: "活動", cat: "Nouns / Noun phrases" },
-            { word: "business", syllables: ["busi", "ness"], ch: "商業/生意", cat: "Nouns / Noun phrases" },
-            { word: "crafting", syllables: ["craft", "ing"], ch: "手工藝製作", cat: "Nouns / Noun phrases" },
-            { word: "egg hunt", syllables: ["egg", " ", "hunt"], ch: "尋找復活節彩蛋活動", cat: "Nouns / Noun phrases" },
-            { word: "event", syllables: ["e", "vent"], ch: "活動/盛事", cat: "Nouns / Noun phrases" },
-            { word: "family", syllables: ["fam", "i", "ly"], ch: "家庭/家人", cat: "Nouns / Noun phrases" },
-            { word: "fee", syllables: ["fee"], ch: "費用", cat: "Nouns / Noun phrases" },
-            { word: "guidance", syllables: ["guid", "ance"], ch: "指導/引導", cat: "Nouns / Noun phrases" },
-            { word: "help desk", syllables: ["help", " ", "desk"], ch: "服務台/諮詢處", cat: "Nouns / Noun phrases" },
-            { word: "homepage", syllables: ["home", "page"], ch: "首頁", cat: "Nouns / Noun phrases" },
-            { word: "hop race", syllables: ["hop", " ", "race"], ch: "跳躍比賽", cat: "Nouns / Noun phrases" },
-            { word: "hour", syllables: ["hour"], ch: "小時", cat: "Nouns / Noun phrases" },
-            { word: "market", syllables: ["mar", "ket"], ch: "市場", cat: "Nouns / Noun phrases" },
-            { word: "member", syllables: ["mem", "ber"], ch: "會員/成員", cat: "Nouns / Noun phrases" },
-            { word: "music", syllables: ["mu", "sic"], ch: "音樂", cat: "Nouns / Noun phrases" },
-            { word: "office", syllables: ["of", "fice"], ch: "辦公室", cat: "Nouns / Noun phrases" },
-            { word: "opening", syllables: ["o", "pen", "ing"], ch: "開幕/開放時間", cat: "Nouns / Noun phrases" },
-            { word: "paper", syllables: ["pa", "per"], ch: "紙張", cat: "Nouns / Noun phrases" },
-            { word: "participant", syllables: ["par", "tic", "i", "pant"], ch: "參與者", cat: "Nouns / Noun phrases" },
-            { word: "performance", syllables: ["per", "form", "ance"], ch: "表演/表現", cat: "Nouns / Noun phrases" },
-            { word: "period", syllables: ["pe", "ri", "od"], ch: "期間/一段時間", cat: "Nouns / Noun phrases" },
-            { word: "person", syllables: ["per", "son"], ch: "人", cat: "Nouns / Noun phrases" },
-            { word: "promotion", syllables: ["pro", "mo", "tion"], ch: "推廣/促銷", cat: "Nouns / Noun phrases" },
-            { word: "session", syllables: ["ses", "sion"], ch: "環節/場次", cat: "Nouns / Noun phrases" },
-            { word: "shop", syllables: ["shop"], ch: "商店", cat: "Nouns / Noun phrases" },
-            { word: "skill", syllables: ["skill"], ch: "技能/技巧", cat: "Nouns / Noun phrases" },
-            { word: "surprise", syllables: ["sur", "prise"], ch: "驚喜", cat: "Nouns / Noun phrases" },
-            { word: "team", syllables: ["team"], ch: "團隊", cat: "Nouns / Noun phrases" },
-            { word: "toy", syllables: ["toy"], ch: "玩具", cat: "Nouns / Noun phrases" },
-            { word: "website", syllables: ["web", "site"], ch: "網站", cat: "Nouns / Noun phrases" },
-            { word: "week", syllables: ["week"], ch: "星期/周", cat: "Nouns / Noun phrases" },
-            { word: "workshop", syllables: ["work", "shop"], ch: "工作坊/研討會", cat: "Nouns / Noun phrases" },
+            { word: "activity", syllables: ["ac", "tiv", "i", "ty"], ch: "活動", cat: "Nouns / Noun phrases", sentence: "We have an exciting activity for you today." },
+            { word: "business", syllables: ["busi", "ness"], ch: "商業/生意", cat: "Nouns / Noun phrases", sentence: "He wants to start a small business soon." },
+            { word: "crafting", syllables: ["craft", "ing"], ch: "手工藝製作", cat: "Nouns / Noun phrases", sentence: "She enjoys crafting handmade gifts for her friends." },
+            { word: "egg hunt", syllables: ["egg", " ", "hunt"], ch: "尋找復活節彩蛋活動", cat: "Nouns / Noun phrases", sentence: "Children love the Easter egg hunt every year." },
+            { word: "event", syllables: ["e", "vent"], ch: "活動/盛事", cat: "Nouns / Noun phrases", sentence: "This event will start at 2 p.m. tomorrow." },
+            { word: "family", syllables: ["fam", "i", "ly"], ch: "家庭/家人", cat: "Nouns / Noun phrases", sentence: "Please bring your family to our party." },
+            { word: "fee", syllables: ["fee"], ch: "費用", cat: "Nouns / Noun phrases", sentence: "You must pay an entry fee of ten dollars." },
+            { word: "guidance", syllables: ["guid", "ance"], ch: "指導/引導", cat: "Nouns / Noun phrases", sentence: "The teacher gives clear guidance to all students." },
+            { word: "help desk", syllables: ["help", " ", "desk"], ch: "服務台/諮詢處", cat: "Nouns / Noun phrases", sentence: "You can ask for a map at the help desk." },
+            { word: "homepage", syllables: ["home", "page"], ch: "首頁", cat: "Nouns / Noun phrases", sentence: "Please visit our homepage to read the updates." },
+            { word: "hop race", syllables: ["hop", " ", "race"], ch: "跳躍比賽", cat: "Nouns / Noun phrases", sentence: "The fun hop race is about to begin." },
+            { word: "hour", syllables: ["hour"], ch: "小時", cat: "Nouns / Noun phrases", sentence: "The workshop lasts for one hour." },
+            { word: "market", syllables: ["mar", "ket"], ch: "市場", cat: "Nouns / Noun phrases", sentence: "We can buy fresh fruit at the weekend market." },
+            { word: "member", syllables: ["mem", "ber"], ch: "會員/成員", cat: "Nouns / Noun phrases", sentence: "Every member can get a free gift today." },
+            { word: "music", syllables: ["mu", "sic"], ch: "音樂", cat: "Nouns / Noun phrases", sentence: "I like listening to pop music when I study." },
+            { word: "office", syllables: ["of", "fice"], ch: "辦公室", cat: "Nouns / Noun phrases", sentence: "Our main office is on the third floor." },
+            { word: "opening", syllables: ["o", "pen", "ing"], ch: "開幕/開放時間", cat: "Nouns / Noun phrases", sentence: "The opening of the new shop is next Monday." },
+            { word: "paper", syllables: ["pa", "per"], ch: "紙張", cat: "Nouns / Noun phrases", sentence: "Use this clean piece of paper to draw a picture." },
+            { word: "participant", syllables: ["par", "tic", "i", "pant"], ch: "參與者", cat: "Nouns / Noun phrases", sentence: "Each participant will receive a certificate." },
+            { word: "performance", syllables: ["per", "form", "ance"], ch: "表演/表現", cat: "Nouns / Noun phrases", sentence: "The dance performance was very exciting." },
+            { word: "period", syllables: ["pe", "ri", "od"], ch: "期間/一段時間", cat: "Nouns / Noun phrases", sentence: "The promotion period runs from Monday to Friday." },
+            { word: "person", syllables: ["per", "son"], ch: "人", cat: "Nouns / Noun phrases", sentence: "Only one person can enter the room at a time." },
+            { word: "promotion", syllables: ["pro", "mo", "tion"], ch: "推廣/促銷", cat: "Nouns / Noun phrases", sentence: "Don't miss our special Easter promotion this week." },
+            { word: "session", syllables: ["ses", "sion"], ch: "環節/場次", cat: "Nouns / Noun phrases", sentence: "The morning session will focus on design." },
+            { word: "shop", syllables: ["shop"], ch: "商店", cat: "Nouns / Noun phrases", sentence: "You can buy handmade toys at this shop." },
+            { word: "skill", syllables: ["skill"], ch: "技能/技巧", cat: "Nouns / Noun phrases", sentence: "This workshop will help you learn a new skill." },
+            { word: "surprise", syllables: ["sur", "prise"], ch: "驚喜", cat: "Nouns / Noun phrases", sentence: "We have a special surprise for our guests." },
+            { word: "team", syllables: ["team"], ch: "團隊", cat: "Nouns / Noun phrases", sentence: "Our project team works hard every day." },
+            { word: "toy", syllables: ["toy"], ch: "玩具", cat: "Nouns / Noun phrases", sentence: "This wooden toy is safe for children to play with." },
+            { word: "website", syllables: ["web", "site"], ch: "網站", cat: "Nouns / Noun phrases", sentence: "Check our website for more details about the event." },
+            { word: "week", syllables: ["week"], ch: "星期/周", cat: "Nouns / Noun phrases", sentence: "The course will finish by next week." },
+            { word: "workshop", syllables: ["work", "shop"], ch: "工作坊/研討會", cat: "Nouns / Noun phrases", sentence: "Please join our creative toy-making workshop." },
             
-            { word: "colourful", syllables: ["col", "our", "ful"], ch: "色彩繽紛的", cat: "Adjectives" },
-            { word: "creative", syllables: ["cre", "a", "tive"], ch: "有創意的", cat: "Adjectives" },
-            { word: "exciting", syllables: ["ex", "cit", "ing"], ch: "令人興奮的", cat: "Adjectives" },
-            { word: "festive", syllables: ["fes", "tive"], ch: "節日的/喜慶的", cat: "Adjectives" },
-            { word: "fun", syllables: ["fun"], ch: "有趣的", cat: "Adjectives" },
-            { word: "live", syllables: ["live"], ch: "現場的/直播的", cat: "Adjectives" },
-            { word: "special", syllables: ["spe", "cial"], ch: "特別的", cat: "Adjectives" },
-            { word: "step-by-step", syllables: ["step", "-", "by", "-", "step"], ch: "按部就班的/循序漸進的", cat: "Adjectives" },
-            { word: "upcoming", syllables: ["up", "com", "ing"], ch: "即將到來的", cat: "Adjectives" },
-            { word: "wooden", syllables: ["wood", "en"], ch: "木製的", cat: "Adjectives" },
+            { word: "colourful", syllables: ["col", "our", "ful"], ch: "色彩繽紛的", cat: "Adjectives", sentence: "She painted a colourful picture for the wall." },
+            { word: "creative", syllables: ["cre", "a", "tive"], ch: "有創意的", cat: "Adjectives", sentence: "We welcome any creative ideas for this project." },
+            { word: "exciting", syllables: ["ex", "cit", "ing"], ch: "令人興奮的", cat: "Adjectives", sentence: "It is an exciting match to watch." },
+            { word: "festive", syllables: ["fes", "tive"], ch: "節日的/喜慶的", cat: "Adjectives", sentence: "The mall has a very festive atmosphere during Christmas." },
+            { word: "fun", syllables: ["fun"], ch: "有趣的", cat: "Adjectives", sentence: "Playing team games is a fun way to learn." },
+            { word: "live", syllables: ["live"], ch: "現場的/直播的", cat: "Adjectives", sentence: "There will be a live music show tonight." },
+            { word: "special", syllables: ["spe", "cial"], ch: "特別的", cat: "Adjectives", sentence: "We have a special discount for members." },
+            { word: "step-by-step", syllables: ["step", "-", "by", "-", "step"], ch: "按部就班的/循序漸進的", cat: "Adjectives", sentence: "Follow the step-by-step guide to make your toy." },
+            { word: "upcoming", syllables: ["up", "com", "ing"], ch: "即將到來的", cat: "Adjectives", sentence: "Details of the upcoming workshop are online." },
+            { word: "wooden", syllables: ["wood", "en"], ch: "木製的", cat: "Adjectives", sentence: "He bought a simple wooden chair for his room." },
             
-            { word: "choose", syllables: ["choose"], ch: "選擇", cat: "Verbs / Phrasal verbs" },
-            { word: "click", syllables: ["click"], ch: "點擊", cat: "Verbs / Phrasal verbs" },
-            { word: "create", syllables: ["cre", "ate"], ch: "創造/製作", cat: "Verbs / Phrasal verbs" },
-            { word: "enjoy", syllables: ["en", "joy"], ch: "享受/喜歡", cat: "Verbs / Phrasal verbs" },
-            { word: "learn", syllables: ["learn"], ch: "學習", cat: "Verbs / Phrasal verbs" },
-            { word: "select", syllables: ["se", "lect"], ch: "挑選/選擇", cat: "Verbs / Phrasal verbs" },
-            { word: "view", syllables: ["view"], ch: "觀看/檢視", cat: "Verbs / Phrasal verbs" },
-            { word: "visit", syllables: ["vis", "it"], ch: "造訪/參觀", cat: "Verbs / Phrasal verbs" }
+            { word: "choose", syllables: ["choose"], ch: "選擇", cat: "Verbs / Phrasal verbs", sentence: "You can choose your favourite colour from the list." },
+            { word: "click", syllables: ["click"], ch: "點擊", cat: "Verbs / Phrasal verbs", sentence: "Click the link below to sign up." },
+            { word: "create", syllables: ["cre", "ate"], ch: "創造/製作", cat: "Verbs / Phrasal verbs", sentence: "We can create a beautiful poster together." },
+            { word: "enjoy", syllables: ["en", "joy"], ch: "享受/喜歡", cat: "Verbs / Phrasal verbs", sentence: "I hope you enjoy this wonderful event." },
+            { word: "learn", syllables: ["learn"], ch: "學習", cat: "Verbs / Phrasal verbs", sentence: "You can learn how to make toys here." },
+            { word: "select", syllables: ["se", "lect"], ch: "挑選/選擇", cat: "Verbs / Phrasal verbs", sentence: "Please select the correct option on the screen." },
+            { word: "view", syllables: ["view"], ch: "觀看/檢視", cat: "Verbs / Phrasal verbs", sentence: "You can view the photo gallery online." },
+            { word: "visit", syllables: ["vis", "it"], ch: "造訪/參觀", cat: "Verbs / Phrasal verbs", sentence: "Remember to visit our new shop this weekend." }
         ];
 
         const studentAttempts = {}; 
         const starredWords = new Set();
         let platformVoices = [];
-
-        // Globalized speech recognition allocation
         const NativeSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-        // --- Build Interactive Paragraph Components ---
+        // --- Build Page 1 Interactive Context Blocks ---
         function buildInteractiveParagraph(targetSelector, rawText) {
             const container = document.getElementById(targetSelector);
             container.innerHTML = "";
@@ -966,38 +1040,27 @@
             });
         }
 
-        // TTS Pronunciation Utilities
-        function triggerAudioPronounce(word, explicitLangOption = null) {
+        // Dedicated TTS Audio output - Prioritizing British Female Profile
+        function triggerAudioPronounce(word) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(word);
                 
-                if(explicitLangOption) {
-                    let targetLang = explicitLangOption.startsWith('us') ? 'en-US' : 'en-GB';
-                    utterance.lang = targetLang;
-                    utterance.rate = 0.85;
+                utterance.lang = 'en-GB';
+                utterance.rate = 0.82;
 
-                    const matchedVoice = platformVoices.find(voice => {
-                        const voiceName = voice.name.toLowerCase();
-                        const voiceLang = voice.lang.toLowerCase();
-                        if (!voiceLang.includes(targetLang.toLowerCase())) return false;
-                        
-                        if (explicitLangOption === 'uk-male') return (voiceName.includes('george') || voiceName.includes('daniel') || voiceName.includes('male')) && !voiceName.includes('female');
-                        if (explicitLangOption === 'uk-female') return voiceName.includes('hazel') || voiceName.includes('susan') || voiceName.includes('female');
-                        if (explicitLangOption === 'us-male') return (voiceName.includes('david') || voiceName.includes('male')) && !voiceName.includes('female');
-                        if (explicitLangOption === 'us-female') return voiceName.includes('zira') || voiceName.includes('samantha') || voiceName.includes('female');
-                        return false;
-                    });
-                    if (matchedVoice) utterance.voice = matchedVoice;
-                } else {
-                    utterance.lang = 'en-US';
-                    utterance.rate = 0.82;
-                }
+                const matchedVoice = platformVoices.find(voice => {
+                    const voiceName = voice.name.toLowerCase();
+                    const voiceLang = voice.lang.toLowerCase();
+                    return voiceLang.includes('en-gb') && (voiceName.includes('hazel') || voiceName.includes('susan') || voiceName.includes('female'));
+                }) || platformVoices.find(voice => voice.lang.toLowerCase().includes('en-gb'));
+
+                if (matchedVoice) utterance.voice = matchedVoice;
                 window.speechSynthesis.speak(utterance);
             }
         }
 
-        // Inline Paragraph Speech Verification
+        // Page 1 Local Mic Validation Engine
         function executeWordSpeechCheck(targetWord, elementWrapper, micButton) {
             if (!NativeSpeechRecognition) {
                 alert("Speech recognition isn't supported in this browser. Use Chrome or Safari.");
@@ -1005,8 +1068,12 @@
             }
 
             const recognition = new NativeSpeechRecognition();
-            recognition.lang = 'en-US';
+            recognition.lang = 'en-GB';
             recognition.interimResults = false;
+            
+            if (recognition.maxAlternatives !== undefined) {
+                recognition.maxAlternatives = 1;
+            }
             
             recognition.onstart = () => {
                 micButton.classList.add('recording');
@@ -1022,7 +1089,7 @@
                 const spokenText = event.results[0][0].transcript.toLowerCase().trim().replace(/[^a-zA-Z]/g, "");
                 micButton.classList.remove('recording');
                 
-                if (spokenText === targetWord || targetWord.includes(spokenText) || spokenText.includes(targetWord)) {
+                if (spokenText === targetWord) {
                     elementWrapper.classList.remove('word-incorrect');
                     elementWrapper.classList.add('word-correct');
                     micButton.innerHTML = "✅ Correct!";
@@ -1043,9 +1110,10 @@
             recognition.start();
         }
 
-        // --- Page 2 Speech Initialization & Rendering Logic ---
+        // --- Page 2 Render Infrastructure ---
         function initializePage2VocabularySuite() {
             const container = document.getElementById('vocabList');
+            container.innerHTML = "";
             let currentCategory = "";
 
             vocabularyData.forEach((item, index) => {
@@ -1073,22 +1141,36 @@
                 row.innerHTML = `
                     <div class="word-index">${index + 1}</div>
                     <div class="star-container" id="star-${index}" onclick="toggleStar(${index}, '${item.word}')">★</div>
-                    <div class="word-main">
-                        <div class="word-text">${item.word}</div>
+                    <div class="word-main" onclick="handleWordClick(${index}, '${item.word}')">
+                        <div class="word-text-wrapper">
+                            <div class="word-text">${item.word}</div>
+                            <span class="click-audio-badge">🔊 Listen &amp; Translate</span>
+                        </div>
                         <div class="syllable-hint" id="hint-${index}">${syllableHTML}</div>
                         <div class="chinese-hint" id="chinese-${index}">${item.ch}</div>
+                        <div class="example-sentence-hint" id="example-${index}">📝 Example: ${item.sentence}</div>
                         <div class="transcript-feedback" id="feedback-${index}"></div>
                     </div>
                     <div class="actions">
                         <span class="status-badge" id="badge-${index}"></span>
-                        <button class="btn-listen" onclick="triggerAudioPronounce('${item.word}', document.getElementById('voiceAccent').value)">🔊 Listen</button>
                         <button class="btn-hint" id="hint-btn-${index}" onclick="toggleHint(${index})">💡 Hint</button>
-                        <button class="btn-chinese" id="cn-btn-${index}" onclick="toggleChinese(${index})">文 A Chinese</button>
+                        <button class="btn-example" id="example-btn-${index}" onclick="toggleExample(${index})">📝 Example (QF2)</button>
                         <button class="btn-speak" id="speak-btn-${index}" onclick="verifySuitePronunciation(${index}, '${item.word}')">🎤 Speak</button>
                     </div>
                 `;
                 container.appendChild(row);
             });
+        }
+
+        // Clicking the word triggers British audio and displays Chinese meaning directly without prefix
+        function handleWordClick(index, word) {
+            triggerAudioPronounce(word);
+            const cnElem = document.getElementById(`chinese-${index}`);
+            if (cnElem.style.display === 'block') {
+                cnElem.style.display = 'none';
+            } else {
+                cnElem.style.display = 'block';
+            }
         }
 
         function toggleStar(index, word) {
@@ -1099,18 +1181,6 @@
             } else {
                 starredWords.add(word);
                 starElem.classList.add('starred');
-            }
-        }
-
-        function toggleChinese(index) {
-            const cnElem = document.getElementById(`chinese-${index}`);
-            const cnBtn = document.getElementById(`cn-btn-${index}`);
-            if (cnElem.style.display === 'block') {
-                cnElem.style.display = 'none';
-                cnBtn.classList.remove('active');
-            } else {
-                cnElem.style.display = 'block';
-                cnBtn.classList.add('active');
             }
         }
 
@@ -1128,6 +1198,19 @@
             }
         }
 
+        function toggleExample(index) {
+            const exElem = document.getElementById(`example-${index}`);
+            const exBtn = document.getElementById(`example-btn-${index}`);
+            if (exElem.style.display === 'block') {
+                exElem.style.display = 'none';
+                exBtn.classList.remove('active');
+            } else {
+                exElem.style.display = 'block';
+                exBtn.classList.add('active');
+            }
+        }
+
+        // High sensitivity exact string matching mechanism
         function verifySuitePronunciation(index, targetWord) {
             if (!NativeSpeechRecognition) {
                 alert("Speech recognition engine not fully supported on this platform.");
@@ -1139,14 +1222,19 @@
             const feedback = document.getElementById(`feedback-${index}`);
             
             const recognitionSuite = new NativeSpeechRecognition();
-            recognitionSuite.lang = 'en-US';
+            recognitionSuite.lang = 'en-GB';
             recognitionSuite.continuous = false;
+            
+            if (recognitionSuite.maxAlternatives !== undefined) {
+                recognitionSuite.maxAlternatives = 1;
+            }
 
             speakBtn.classList.add('recording');
             speakBtn.innerHTML = "⏳ Listening...";
             
             recognitionSuite.onresult = function(event) {
                 const speechResult = event.results[0][0].transcript.toLowerCase().trim();
+                
                 const cleanTarget = targetWord.toLowerCase().replace(/[^a-zA-Z0-9]/g, '').trim();
                 const cleanSpeech = speechResult.replace(/[^a-zA-Z0-9]/g, '').trim();
 
@@ -1179,7 +1267,6 @@
             document.getElementById('progressTracker').textContent = `Attempted: ${attemptedCount} / 50 words`;
         }
 
-        // --- Native Logic Event Pass-Throughs ---
         function autoGrow(element) {
             element.style.height = "auto";
             element.style.height = (element.scrollHeight) + "px";
@@ -1222,87 +1309,9 @@
             }
         }
 
-        // Global dismiss for tooltips on void clicks
         document.addEventListener('click', () => {
             document.querySelectorAll('.clickable-word').forEach(el => el.classList.remove('active-syl'));
         });
-
-        // --- Export Generation Functions ---
-        function exportToWorksheet() {
-            const name = document.getElementById("studentName").value.trim() || "Anonymous Student";
-            
-            const s1_q1 = document.getElementById("s1_q1").value.trim() || "__________________________________________________";
-            const s1_q2 = document.getElementById("s1_q2").value.trim() || "__________________________________________________";
-            const s1_off = document.getElementById("s1_offer").value.trim() || "__________________________________________________";
-            
-            const s2_q1 = document.getElementById("s2_q1").value.trim() || "__________________________________________________";
-            const s2_q2 = document.getElementById("s2_q2").value.trim() || "__________________________________________________";
-            const s2_off = document.getElementById("s2_offer").value.trim() || "__________________________________________________";
-
-            const printWindow = window.open('', '_blank', 'width=900,height=800');
-            printWindow.document.write(`
-                <html>
-                <head>
-                    <title>LAN3109_Worksheet_${name.replace(/[^a-zA-Z0-9]/g, "_")}</title>
-                    <style>
-                        @page { margin: 15mm; size: a4 portrait; }
-                        body { font-family: Arial, sans-serif; color: #000000; margin: 0; padding: 0; font-size: 11pt; line-height: 1.5; }
-                        .header-row { display: flex; justify-content: space-between; border-bottom: 2px solid #000000; padding-bottom: 10px; margin-bottom: 25px; }
-                        .sit-block { margin-bottom: 35px; page-break-inside: avoid; }
-                        .title { font-weight: bold; font-size: 14pt; margin-bottom: 5px; }
-                        .desc { font-size: 11pt; margin-bottom: 15px; color: #222; }
-                        .box-frame { border: 2px solid #000000; width: 100%; }
-                        .row-frame { border-bottom: 2px solid #000000; padding: 15px; }
-                        .row-frame:last-child { border-bottom: none; }
-                        .label { font-weight: bold; font-style: italic; margin-bottom: 10px; font-size: 11pt; }
-                        .ans-line { margin: 8px 0; display: flex; align-items: flex-start; font-size: 11pt; }
-                        .bullet { font-size: 14pt; margin-right: 8px; line-height: 1; }
-                        .text-content { font-family: Courier, monospace; color: #000000; white-space: pre-wrap; word-break: break-word; }
-                    </style>
-                </head>
-                <body>
-                    <div class="header-row">
-                        <div><strong>LAN3109 Revision Task Sheet</strong></div>
-                        <div><strong>Student Name:</strong> ${name}</div>
-                    </div>
-                    <div class="sit-block">
-                        <div class="title">Situation 1</div>
-                        <div class="desc">${rawTextSituation1}</div>
-                        <div class="box-frame">
-                            <div class="row-frame">
-                                <div class="label">Why join?*</div>
-                                <div class="ans-line"><span class="bullet">•</span><span class="text-content">${s1_q1}</span></div>
-                                <div class="ans-line"><span class="bullet">•</span><span class="text-content">${s1_q2}</span></div>
-                            </div>
-                            <div class="row-frame">
-                                <div class="label">Special offer:</div>
-                                <div class="ans-line"><span class="text-content">${s1_off}</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sit-block">
-                        <div class="title">Situation 2</div>
-                        <div class="desc">${rawTextSituation2}</div>
-                        <div class="box-frame">
-                            <div class="row-frame">
-                                <div class="label">Why join?*</div>
-                                <div class="ans-line"><span class="bullet">•</span><span class="text-content">${s2_q1}</span></div>
-                                <div class="ans-line"><span class="bullet">•</span><span class="text-content">${s2_q2}</span></div>
-                            </div>
-                            <div class="row-frame">
-                                <div class="label">Special offer:</div>
-                                <div class="ans-line"><span class="text-content">${s2_off}</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <script>
-                        window.onload = function() { window.print(); setTimeout(function() { window.close(); }, 500); };
-                    <\/script>
-                </body>
-                </html>
-            `);
-            printWindow.document.close();
-        }
 
         function generateReport() {
             const studentName = document.getElementById('studentName').value.trim() || "Anonymous Student";
@@ -1360,7 +1369,7 @@
                 <body>
                     <div class="header">
                         <h2>LAN3109 Pronunciation Practice Report</h2>
-                        <p>Generated: ${new Date().toLocaleDateString()} @ ${new Date().toLocaleTimeString()}</p>
+                        <p>Generated: ${new Date().toLocaleDateString()}</p>
                     </div>
                     <div class="meta-box">
                         <div>
@@ -1395,7 +1404,6 @@
             printWindow.document.close();
         }
 
-        // Initial setup on window execution
         window.addEventListener('DOMContentLoaded', () => {
             buildInteractiveParagraph("desc1", rawTextSituation1);
             buildInteractiveParagraph("desc2", rawTextSituation2);
